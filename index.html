@@ -1,0 +1,1555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUMIÈRE — Skincare Intelligence</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #faf5ee;
+      --warm-white: #fff9f2;
+      --blush: #e8c5a8;
+      --dusty-rose: #c9897a;
+      --terracotta: #b05c47;
+      --sage: #8a9e8c;
+      --deep: #2c1f1a;
+      --mid: #6b4c3b;
+      --gold: #c4a876;
+      --light-gold: #e8d9be;
+      --glass: rgba(255,249,242,0.7);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--deep);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(250,245,238,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(196,168,118,0.25);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem; font-weight: 300; letter-spacing: 0.3em;
+      color: var(--terracotta); text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+    .nav-btn {
+      padding: 0.55rem 1.2rem;
+      font-family: 'DM Sans', sans-serif; font-size: 0.75rem;
+      font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+      border: 1px solid transparent; background: transparent;
+      color: var(--mid); cursor: pointer; border-radius: 2rem;
+      transition: all 0.25s; text-decoration: none; display: inline-block;
+    }
+
+    .nav-btn:hover, .nav-btn.active {
+      background: var(--terracotta); color: white;
+      border-color: var(--terracotta);
+    }
+
+    /* ─── HERO ─── */
+    #home {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 6rem 2rem 4rem;
+      position: relative; overflow: hidden;
+      background: radial-gradient(ellipse 80% 60% at 50% 40%, #f5e6d3 0%, var(--cream) 70%);
+    }
+
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%; filter: blur(80px); opacity: 0.35; pointer-events: none;
+    }
+    .orb1 { width: 500px; height: 500px; background: var(--blush); top: -100px; right: -100px; }
+    .orb2 { width: 350px; height: 350px; background: #d4c5b0; bottom: 50px; left: -80px; }
+    .orb3 { width: 200px; height: 200px; background: var(--sage); opacity: 0.2; top: 40%; left: 10%; }
+
+    .hero-eyebrow {
+      font-size: 0.72rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--dusty-rose); font-weight: 500; margin-bottom: 1.5rem;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-weight: 300; line-height: 1.0;
+      text-align: center; color: var(--deep);
+      animation: fadeUp 0.9s 0.1s ease both;
+    }
+
+    .hero-title em { font-style: italic; color: var(--terracotta); }
+
+    .hero-sub {
+      font-size: 1rem; color: var(--mid); font-weight: 300;
+      margin-top: 1.5rem; text-align: center; max-width: 480px; line-height: 1.7;
+      animation: fadeUp 1s 0.2s ease both;
+    }
+
+    .hero-ctas {
+      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+      margin-top: 3rem;
+      animation: fadeUp 1s 0.3s ease both;
+    }
+
+    .btn-primary {
+      padding: 1rem 2.2rem;
+      background: var(--terracotta); color: white;
+      border: none; border-radius: 3rem; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+      font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      transition: all 0.3s; box-shadow: 0 4px 20px rgba(176,92,71,0.35);
+      text-decoration: none;
+    }
+    .btn-primary:hover { background: #8e3d2c; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(176,92,71,0.45); }
+
+    .btn-outline {
+      padding: 1rem 2.2rem;
+      background: transparent; color: var(--terracotta);
+      border: 1.5px solid var(--terracotta); border-radius: 3rem; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; font-size: 0.85rem;
+      font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      transition: all 0.3s; text-decoration: none;
+    }
+    .btn-outline:hover { background: var(--terracotta); color: white; }
+
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--mid);
+      animation: fadeUp 1s 0.5s ease both;
+    }
+
+    .scroll-line {
+      width: 1px; height: 48px; background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+
+    /* ─── SECTIONS ─── */
+    section { padding: 5rem 2rem; }
+
+    .section-header { text-align: center; margin-bottom: 4rem; }
+
+    .section-label {
+      font-size: 0.68rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--dusty-rose); font-weight: 500; display: block; margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300; color: var(--deep); line-height: 1.15;
+    }
+
+    .section-title em { font-style: italic; color: var(--terracotta); }
+
+    /* ─── PRODUCTS ─── */
+    #products { background: var(--warm-white); }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.2rem; max-width: 1100px; margin: 0 auto;
+    }
+
+    .product-card {
+      background: white; border-radius: 1.5rem;
+      padding: 2rem 1.5rem;
+      border: 1px solid rgba(196,168,118,0.2);
+      cursor: pointer; transition: all 0.3s;
+      position: relative; overflow: hidden;
+    }
+
+    .product-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--dusty-rose), var(--gold));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+
+    .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(44,31,26,0.1); }
+    .product-card:hover::before { transform: scaleX(1); }
+
+    .product-icon {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: var(--light-gold);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 1.2rem;
+    }
+
+    .product-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 400; color: var(--deep);
+      margin-bottom: 0.5rem;
+    }
+
+    .product-teaser {
+      font-size: 0.8rem; color: var(--mid); line-height: 1.6; font-weight: 300;
+    }
+
+    .product-arrow {
+      margin-top: 1.2rem; font-size: 0.72rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--terracotta); font-weight: 500;
+    }
+
+    /* ─── PRODUCT DETAIL MODAL ─── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(44,31,26,0.6); backdrop-filter: blur(4px);
+      display: none; align-items: center; justify-content: center;
+      padding: 2rem;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--warm-white); border-radius: 2rem;
+      padding: 3rem; max-width: 700px; width: 100%;
+      max-height: 85vh; overflow-y: auto;
+      position: relative; animation: modalIn 0.35s ease;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.97); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .modal-close {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--light-gold); border: none; cursor: pointer;
+      font-size: 1rem; display: flex; align-items: center; justify-content: center;
+      color: var(--deep); transition: background 0.2s;
+    }
+    .modal-close:hover { background: var(--blush); }
+
+    .modal-label {
+      font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--dusty-rose); margin-bottom: 0.6rem;
+    }
+
+    .modal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 300; color: var(--deep);
+      margin-bottom: 1rem;
+    }
+
+    .modal-desc {
+      font-size: 0.9rem; line-height: 1.8; color: var(--mid);
+      margin-bottom: 1.8rem; font-weight: 300;
+    }
+
+    .ingredients-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-weight: 400; color: var(--deep);
+      margin-bottom: 1rem;
+    }
+
+    .ingredient-group { margin-bottom: 1.4rem; }
+
+    .ingredient-group-label {
+      font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold); font-weight: 500; margin-bottom: 0.6rem;
+      padding-bottom: 0.4rem; border-bottom: 1px solid var(--light-gold);
+    }
+
+    .ingredient-tags {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+    }
+
+    .ingredient-tag {
+      padding: 0.3rem 0.8rem;
+      background: var(--cream); border: 1px solid var(--blush);
+      border-radius: 2rem; font-size: 0.75rem; color: var(--mid);
+    }
+
+    /* ─── SHELF LIFE ─── */
+    #shelflife {
+      background: linear-gradient(135deg, #2c1f1a 0%, #4a2e22 50%, #3a2418 100%);
+      color: white;
+    }
+
+    #shelflife .section-title { color: white; }
+    #shelflife .section-label { color: var(--blush); }
+
+    .shelf-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem; max-width: 1100px; margin: 0 auto;
+    }
+
+    .shelf-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(196,168,118,0.2);
+      border-radius: 1.5rem; padding: 2rem;
+      transition: all 0.3s;
+    }
+    .shelf-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-3px); }
+
+    .shelf-product {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 300; color: white; margin-bottom: 0.3rem;
+    }
+
+    .shelf-duration {
+      font-size: 2rem; font-weight: 500; color: var(--gold);
+      font-family: 'Cormorant Garamond', serif; letter-spacing: -0.02em;
+      margin-bottom: 0.8rem;
+    }
+
+    .shelf-detail {
+      font-size: 0.82rem; color: rgba(255,255,255,0.65); line-height: 1.7; font-weight: 300;
+    }
+
+    .shelf-tips {
+      max-width: 1100px; margin: 3rem auto 0;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .tip-card {
+      background: rgba(196,168,118,0.12);
+      border-radius: 1.2rem; padding: 1.5rem;
+      border: 1px solid rgba(196,168,118,0.25);
+    }
+
+    .tip-icon { font-size: 1.6rem; margin-bottom: 0.8rem; }
+    .tip-text { font-size: 0.82rem; color: rgba(255,255,255,0.75); line-height: 1.6; }
+
+    /* ─── PREDICTOR ─── */
+    #predictor { background: var(--cream); }
+
+    .predictor-card {
+      max-width: 680px; margin: 0 auto;
+      background: white; border-radius: 2rem;
+      padding: 3.5rem; border: 1px solid var(--light-gold);
+      box-shadow: 0 8px 50px rgba(44,31,26,0.07);
+    }
+
+    .predictor-input-wrap { position: relative; margin: 2rem 0; }
+
+    .predictor-input {
+      width: 100%; padding: 1.1rem 1.5rem;
+      border: 2px solid var(--blush); border-radius: 3rem;
+      font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+      color: var(--deep); background: var(--cream); outline: none;
+      transition: border-color 0.25s;
+    }
+    .predictor-input:focus { border-color: var(--terracotta); }
+    .predictor-input::placeholder { color: #b8a090; }
+
+    .predictor-btn {
+      width: 100%; padding: 1.1rem;
+      background: linear-gradient(135deg, var(--terracotta), #c96d58);
+      border: none; border-radius: 3rem; color: white; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+      font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      transition: all 0.3s; box-shadow: 0 4px 20px rgba(176,92,71,0.3);
+    }
+    .predictor-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(176,92,71,0.45); }
+
+    .predictor-result {
+      margin-top: 2rem; padding: 1.8rem 2rem;
+      border-radius: 1.2rem; display: none;
+      animation: fadeUp 0.4s ease;
+    }
+
+    .predictor-result.danger { background: #fef2f0; border: 1px solid #f5c5bb; }
+    .predictor-result.warning { background: #fef8f0; border: 1px solid #f5e0bb; }
+    .predictor-result.info { background: #f0faf5; border: 1px solid #bbdecb; }
+    .predictor-result.notfound { background: var(--cream); border: 1px solid var(--blush); }
+
+    .result-effect {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 400; margin-bottom: 0.5rem;
+    }
+
+    .result-desc { font-size: 0.85rem; line-height: 1.7; color: var(--mid); }
+
+    .result-badge {
+      display: inline-block; padding: 0.25rem 0.9rem;
+      border-radius: 2rem; font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.8rem;
+    }
+
+    .badge-danger { background: #f5c5bb; color: #8e3d2c; }
+    .badge-warning { background: #f5e0bb; color: #8a6020; }
+    .badge-safe { background: #bbdecb; color: #1e5c3a; }
+
+    /* ─── pH CALCULATOR ─── */
+    #phcalculator { background: var(--warm-white); }
+
+    .ph-calculator-wrap { max-width: 1100px; margin: 0 auto; }
+
+    .ph-stats-row {
+      display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+      padding: 1.8rem 2rem;
+      background: white;
+      border: 1px solid rgba(196,168,118,0.2);
+      border-radius: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .ph-stat { text-align: center; }
+
+    .ph-stat-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 300; color: var(--terracotta); line-height: 1;
+      margin-bottom: 0.2rem;
+    }
+
+    .ph-stat-label {
+      font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--mid); font-weight: 500;
+    }
+
+    .ph-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2rem; margin-bottom: 2.5rem;
+    }
+
+    @media (max-width: 900px) { .ph-grid { grid-template-columns: 1fr; } }
+
+    .ph-card {
+      background: white;
+      border: 1px solid rgba(196,168,118,0.2);
+      border-radius: 1.5rem; padding: 2rem;
+      transition: all 0.3s;
+    }
+    .ph-card:hover {
+      box-shadow: 0 8px 40px rgba(44,31,26,0.08);
+      border-color: rgba(196,168,118,0.4);
+    }
+
+    .ph-card h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 400; color: var(--deep);
+      margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    .ph-label {
+      display: block; font-size: 0.72rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--mid); font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .ph-select {
+      width: 100%; padding: 0.9rem 1.2rem;
+      background: var(--cream); border: 1.5px solid var(--blush);
+      border-radius: 2rem; color: var(--deep);
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+      margin-bottom: 1.2rem; outline: none;
+      transition: border-color 0.2s; appearance: none;
+      cursor: pointer;
+    }
+    .ph-select:focus { border-color: var(--terracotta); }
+    .ph-select option { background: white; }
+
+    .selected-tags-box {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+      min-height: 48px; padding: 0.75rem 1rem;
+      background: var(--cream); border: 1.5px solid var(--blush);
+      border-radius: 1rem; margin-bottom: 1.2rem;
+    }
+
+    .ph-tag {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.3rem 0.75rem;
+      background: linear-gradient(135deg, var(--terracotta), #c96d58);
+      color: white; border-radius: 2rem;
+      font-size: 0.75rem; font-weight: 500;
+    }
+
+    .ph-tag button {
+      background: none; border: none; color: white;
+      cursor: pointer; font-size: 0.9rem; opacity: 0.8;
+      transition: opacity 0.2s; line-height: 1;
+    }
+    .ph-tag button:hover { opacity: 1; }
+
+    .ph-btn-group { display: flex; gap: 0.8rem; margin-top: 0.5rem; }
+
+    .ph-btn {
+      padding: 0.85rem 1.8rem; border: none; border-radius: 3rem;
+      font-family: 'DM Sans', sans-serif; font-size: 0.82rem;
+      font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.25s;
+    }
+
+    .ph-btn-main {
+      background: linear-gradient(135deg, var(--terracotta), #c96d58);
+      color: white; box-shadow: 0 4px 16px rgba(176,92,71,0.3);
+    }
+    .ph-btn-main:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(176,92,71,0.4); }
+
+    .ph-btn-clear {
+      background: transparent; color: var(--mid);
+      border: 1.5px solid var(--blush);
+    }
+    .ph-btn-clear:hover { border-color: var(--terracotta); color: var(--terracotta); }
+
+    /* Result card */
+    .ph-result-card { text-align: center; }
+
+    .ph-placeholder {
+      color: var(--mid); padding: 3rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+    }
+
+    .ph-placeholder-icon { font-size: 3.5rem; opacity: 0.4; }
+
+    .ph-placeholder p {
+      font-size: 0.88rem; line-height: 1.6; max-width: 240px;
+      color: var(--mid); font-weight: 300;
+    }
+
+    .ph-result-inner { display: none; }
+
+    .ph-circle-wrap {
+      width: 170px; height: 170px; margin: 0 auto 1.5rem;
+      position: relative;
+    }
+
+    .ph-circle {
+      width: 100%; height: 100%; border-radius: 50%;
+      background: conic-gradient(
+        from 180deg,
+        #c9897a 0deg, #d4a574 90deg,
+        #8a9e8c 180deg, #b0c4a8 270deg,
+        #c4a876 360deg
+      );
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+
+    .ph-circle::before {
+      content: ''; position: absolute; inset: 8px;
+      background: white; border-radius: 50%;
+    }
+
+    .ph-circle-value {
+      position: relative; z-index: 1;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem; font-weight: 300; color: var(--deep);
+    }
+
+    .ph-circle-label {
+      font-size: 0.75rem; color: var(--mid); margin-top: 0.1rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+    }
+
+    .ph-status-badge {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.45rem 1.1rem; border-radius: 2rem;
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .ph-status-acidic { background: #fef0ec; color: var(--terracotta); border: 1px solid #f5c5bb; }
+    .ph-status-balanced { background: #f0f5f1; color: #4a7a55; border: 1px solid #b0d4b8; }
+    .ph-status-neutral { background: #f0f4f5; color: #4a6b7a; border: 1px solid #b0c8d4; }
+
+    .ph-result-desc {
+      font-size: 0.85rem; color: var(--mid); line-height: 1.7;
+      max-width: 280px; margin: 0 auto 1.5rem; font-weight: 300;
+    }
+
+    .ph-scale-wrap {
+      padding-top: 1.5rem; border-top: 1px solid var(--light-gold);
+    }
+
+    .ph-scale-bar {
+      height: 10px; border-radius: 5px; margin: 0.8rem 0 0.5rem;
+      position: relative;
+      background: linear-gradient(to right,
+        var(--dusty-rose) 0%, var(--gold) 30%,
+        var(--sage) 60%, #a0b8c0 100%);
+    }
+
+    .ph-scale-marker {
+      position: absolute; top: -7px;
+      width: 3px; height: 24px;
+      background: var(--deep); border-radius: 2px;
+      transform: translateX(-50%);
+      transition: left 0.5s ease;
+      box-shadow: 0 2px 6px rgba(44,31,26,0.3);
+    }
+
+    .ph-scale-labels {
+      display: flex; justify-content: space-between;
+      font-size: 0.68rem; color: var(--mid); letter-spacing: 0.05em;
+    }
+
+    /* pH Info cards */
+    .ph-info-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .ph-info-card {
+      background: white; border: 1px solid rgba(196,168,118,0.2);
+      border-radius: 1.2rem; padding: 1.5rem;
+    }
+
+    .ph-info-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem; font-weight: 400; color: var(--deep);
+      margin-bottom: 0.5rem;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+
+    .ph-info-card p { font-size: 0.8rem; color: var(--mid); line-height: 1.6; font-weight: 300; }
+
+    /* ─── STATISTICS ─── */
+    #statistics { background: var(--warm-white); }
+
+    .stats-container { max-width: 1100px; margin: 0 auto; }
+
+    .stats-overview {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.2rem; margin-bottom: 3rem;
+    }
+
+    .stat-number-card {
+      background: white; border-radius: 1.5rem; padding: 2rem;
+      border: 1px solid rgba(196,168,118,0.2); text-align: center;
+      transition: all 0.3s;
+    }
+    .stat-number-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(44,31,26,0.08); }
+
+    .stat-big {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem; font-weight: 300; color: var(--terracotta);
+      line-height: 1; margin-bottom: 0.4rem;
+    }
+
+    .stat-label-sm {
+      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--mid); font-weight: 500;
+    }
+
+    .charts-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2rem; margin-bottom: 2rem;
+    }
+
+    @media (max-width: 700px) { .charts-grid { grid-template-columns: 1fr; } }
+
+    .chart-card {
+      background: white; border-radius: 1.5rem; padding: 2rem;
+      border: 1px solid rgba(196,168,118,0.2);
+    }
+
+    .chart-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 400; color: var(--deep);
+      margin-bottom: 1.5rem;
+    }
+
+    .bar-item { margin-bottom: 0.9rem; }
+
+    .bar-label {
+      display: flex; justify-content: space-between;
+      font-size: 0.8rem; color: var(--mid); margin-bottom: 0.3rem;
+    }
+
+    .bar-track {
+      height: 8px; background: var(--light-gold); border-radius: 4px; overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%; border-radius: 4px;
+      background: linear-gradient(90deg, var(--dusty-rose), var(--gold));
+      transition: width 1s ease;
+    }
+
+    .expiry-insight {
+      background: linear-gradient(135deg, var(--terracotta), #c96d58);
+      border-radius: 1.5rem; padding: 2.5rem; color: white; text-align: center;
+      margin-top: 2rem;
+    }
+
+    .expiry-insight-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 300; margin-bottom: 0.8rem;
+    }
+
+    .expiry-insight-text {
+      font-size: 0.88rem; opacity: 0.9; line-height: 1.7; max-width: 500px; margin: 0 auto;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--deep); color: rgba(255,255,255,0.6);
+      padding: 3rem 2rem; text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 300; letter-spacing: 0.3em;
+      color: var(--gold); text-transform: uppercase; margin-bottom: 1rem;
+    }
+
+    .footer-text { font-size: 0.8rem; line-height: 1.7; }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; } 50% { opacity: 1; }
+    }
+
+    .fade-in {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 0.2rem; }
+      .nav-btn { padding: 0.45rem 0.8rem; font-size: 0.65rem; }
+      .products-grid { grid-template-columns: 1fr 1fr; }
+      .predictor-card { padding: 2rem 1.5rem; }
+      .ph-stats-row { gap: 1.5rem; }
+    }
+
+    /* ─── Scrollbar ─── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--blush); border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#home">Lumière</a>
+  <div class="nav-links">
+    <a class="nav-btn" href="#products" onclick="setActive(this)">Products</a>
+    <a class="nav-btn" href="#shelflife" onclick="setActive(this)">Shelf Life</a>
+    <a class="nav-btn" href="#predictor" onclick="setActive(this)">Predictor</a>
+    <a class="nav-btn" href="#phcalculator" onclick="setActive(this)">pH Calculator</a>
+    <a class="nav-btn" href="#statistics" onclick="setActive(this)">Analytics</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <div class="hero-orb orb3"></div>
+
+  <span class="hero-eyebrow">Skincare Intelligence Platform</span>
+  <h1 class="hero-title">Know What's In<br><em>Your Skin.</em></h1>
+  <p class="hero-sub">From cleansers to serums — explore formulations, decode ingredients, predict effects, and understand the science of your skincare routine.</p>
+
+  <div class="hero-ctas">
+    <a class="btn-primary" href="#products">Explore Products</a>
+    <a class="btn-outline" href="#phcalculator">pH Calculator</a>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="section-header fade-in">
+    <span class="section-label">Formulation Guide</span>
+    <h2 class="section-title">Skincare <em>Products</em></h2>
+  </div>
+
+  <div class="products-grid">
+    <div class="product-card fade-in" onclick="openModal('cleansers')">
+      <div class="product-icon">🧴</div>
+      <div class="product-name">Cleansers</div>
+      <p class="product-teaser">Gentle to deep-cleansing formulas that remove impurities without disrupting your skin barrier.</p>
+      <div class="product-arrow">Explore →</div>
+    </div>
+    <div class="product-card fade-in" onclick="openModal('toners')">
+      <div class="product-icon">💧</div>
+      <div class="product-name">Toners</div>
+      <p class="product-teaser">Balancing, hydrating or exfoliating — toners prep your skin for everything that follows.</p>
+      <div class="product-arrow">Explore →</div>
+    </div>
+    <div class="product-card fade-in" onclick="openModal('serums')">
+      <div class="product-icon">🔬</div>
+      <div class="product-name">Serums</div>
+      <p class="product-teaser">High-concentration actives targeting brightening, hydration, anti-aging and acne concerns.</p>
+      <div class="product-arrow">Explore →</div>
+    </div>
+    <div class="product-card fade-in" onclick="openModal('moisturizers')">
+      <div class="product-icon">🌿</div>
+      <div class="product-name">Moisturizers</div>
+      <p class="product-teaser">Humectants, emollients and occlusives working together to seal in hydration all day.</p>
+      <div class="product-arrow">Explore →</div>
+    </div>
+    <div class="product-card fade-in" onclick="openModal('exfoliation')">
+      <div class="product-icon">✨</div>
+      <div class="product-name">Exfoliation</div>
+      <p class="product-teaser">Physical and chemical exfoliants — AHAs, BHAs, PHAs and more — for renewed radiance.</p>
+      <div class="product-arrow">Explore →</div>
+    </div>
+    <div class="product-card fade-in" onclick="openModal('sunscreen')">
+      <div class="product-icon">☀️</div>
+      <div class="product-name">Sunscreen</div>
+      <p class="product-teaser">UV filters, physical and chemical, that defend your skin from daily damage and photoaging.</p>
+      <div class="product-arrow">Explore →</div>
+    </div>
+    <div class="product-card fade-in" onclick="openModal('facemasks')">
+      <div class="product-icon">🎭</div>
+      <div class="product-name">Face Masks</div>
+      <p class="product-teaser">Clay, sheet, peel-off and sleeping masks delivering targeted treatment in one session.</p>
+      <div class="product-arrow">Explore →</div>
+    </div>
+    <div class="product-card fade-in" onclick="openModal('lipbalm')">
+      <div class="product-icon">💄</div>
+      <div class="product-name">Lip Balm</div>
+      <p class="product-teaser">Occlusive waxes, nourishing butters and oils to protect and heal delicate lip skin.</p>
+      <div class="product-arrow">Explore →</div>
+    </div>
+  </div>
+</section>
+
+<!-- SHELF LIFE -->
+<section id="shelflife">
+  <div class="section-header fade-in">
+    <span class="section-label">Stability & Storage</span>
+    <h2 class="section-title" style="color:white">Shelf Life of<br><em>Skincare Products</em></h2>
+  </div>
+
+  <div class="shelf-grid fade-in">
+    <div class="shelf-card">
+      <div class="shelf-product">Cleansers</div>
+      <div class="shelf-duration">1 – 2 Years</div>
+      <p class="shelf-detail">Foaming and gel cleansers are generally stable due to their surfactant base and preservative system. Opened: use within 12 months. Store at room temperature, away from steam and moisture.</p>
+    </div>
+    <div class="shelf-card">
+      <div class="shelf-product">Toners</div>
+      <div class="shelf-duration">1 – 2 Years</div>
+      <p class="shelf-detail">Alcohol-based toners tend to last longer than hydrating, ferment-rich toners. Keep sealed and refrigerate after opening for best results with active-laden formulas.</p>
+    </div>
+    <div class="shelf-card">
+      <div class="shelf-product">Vitamin C Serums</div>
+      <div class="shelf-duration">3 – 12 Months</div>
+      <p class="shelf-detail">Highly unstable — L-ascorbic acid oxidizes rapidly upon exposure to light and air. Use within 3 months of opening. Refrigerate and use opaque, airless packaging whenever possible.</p>
+    </div>
+    <div class="shelf-card">
+      <div class="shelf-product">Retinol Serums</div>
+      <div class="shelf-duration">6 – 12 Months</div>
+      <p class="shelf-detail">Retinol degrades with light and oxygen exposure. Store in a cool, dark location. Airless pumps preserve potency significantly longer than open jars.</p>
+    </div>
+    <div class="shelf-card">
+      <div class="shelf-product">Hyaluronic Acid Serum</div>
+      <div class="shelf-duration">1 – 2 Years</div>
+      <p class="shelf-detail">One of the most stable actives. HA serums retain efficacy well, though preservatives may degrade over time. Keep at stable room temperature (15–25°C).</p>
+    </div>
+    <div class="shelf-card">
+      <div class="shelf-product">Moisturizers</div>
+      <div class="shelf-duration">1 – 3 Years</div>
+      <p class="shelf-detail">Oil-heavy creams can turn rancid faster. Water-based lotions with good preservative systems last 2+ years. Avoid dipping fingers — use spatulas to prevent contamination.</p>
+    </div>
+    <div class="shelf-card">
+      <div class="shelf-product">Sunscreen</div>
+      <div class="shelf-duration">2 – 3 Years</div>
+      <p class="shelf-detail">Chemical UV filters degrade with prolonged heat and light exposure. Never leave in a hot car. Expired sunscreen loses its SPF protection — discard past the date.</p>
+    </div>
+    <div class="shelf-card">
+      <div class="shelf-product">Face Masks</div>
+      <div class="shelf-duration">1 – 2 Years</div>
+      <p class="shelf-detail">Sheet masks are single-use and sealed — use promptly once opened. Clay masks in jars should be used within 6–12 months of opening to maintain ingredient efficacy.</p>
+    </div>
+    <div class="shelf-card">
+      <div class="shelf-product">Lip Balm</div>
+      <div class="shelf-duration">1 – 2 Years</div>
+      <p class="shelf-detail">Natural butter and oil-based balms are susceptible to rancidity. Sealed balms last up to 2 years but should be discarded if the scent or texture changes markedly.</p>
+    </div>
+    <div class="shelf-card">
+      <div class="shelf-product">Exfoliants (AHA/BHA)</div>
+      <div class="shelf-duration">1 – 2 Years</div>
+      <p class="shelf-detail">Acid exfoliants are relatively stable if kept sealed and away from light. pH can shift over time, reducing efficacy. Refrigerating after opening helps maintain acid strength.</p>
+    </div>
+  </div>
+
+  <div class="shelf-tips fade-in">
+    <div class="tip-card">
+      <div class="tip-icon">🌡️</div>
+      <p class="tip-text"><strong style="color:white">Ideal Temperature</strong><br>Most products prefer 15–25°C. Avoid bathrooms where steam accelerates degradation.</p>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🌑</div>
+      <p class="tip-text"><strong style="color:white">Darkness is Key</strong><br>UV light degrades actives like Vitamin C, retinol and certain preservatives. Use opaque packaging.</p>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🧪</div>
+      <p class="tip-text"><strong style="color:white">Check the PAO Symbol</strong><br>The open-jar symbol shows months after opening (e.g., 12M = use within 12 months once opened).</p>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">⚠️</div>
+      <p class="tip-text"><strong style="color:white">Signs of Expiry</strong><br>Colour change, off smell, separation, thickening or pH shift all signal degradation — discard promptly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PREDICTOR -->
+<section id="predictor">
+  <div class="section-header fade-in">
+    <span class="section-label">AI-Assisted Analysis</span>
+    <h2 class="section-title">Side Effect <em>Predictor</em></h2>
+  </div>
+
+  <div class="predictor-card fade-in">
+    <p style="color:var(--mid);font-size:0.88rem;line-height:1.7;margin-bottom:0.5rem;">
+      Enter any skincare ingredient below to see its predicted side effect when used in a product past its shelf-life, based on our analysis of <strong>160 formulations</strong>.
+    </p>
+
+    <div class="predictor-input-wrap">
+      <input class="predictor-input" type="text" id="ingredientInput"
+        placeholder="e.g. Salicylic Acid, Glycerin, Retinol..."
+        onkeydown="if(event.key==='Enter') predictEffect()" />
+    </div>
+
+    <button class="predictor-btn" onclick="predictEffect()">
+      Predict Side Effect
+    </button>
+
+    <div class="predictor-result" id="predictResult">
+      <div class="result-badge" id="resultBadge"></div>
+      <div class="result-effect" id="resultEffect"></div>
+      <p class="result-desc" id="resultDesc"></p>
+    </div>
+  </div>
+</section>
+
+<!-- pH CALCULATOR -->
+<section id="phcalculator">
+  <div class="section-header fade-in">
+    <span class="section-label">Formulation Science</span>
+    <h2 class="section-title">pH <em>Calculator</em></h2>
+  </div>
+
+  <div class="ph-calculator-wrap">
+
+    <!-- Stats Row -->
+    <div class="ph-stats-row fade-in">
+      <div class="ph-stat">
+        <div class="ph-stat-value">160</div>
+        <div class="ph-stat-label">Products Analysed</div>
+      </div>
+      <div class="ph-stat">
+        <div class="ph-stat-value">3.5–7.5</div>
+        <div class="ph-stat-label">pH Range</div>
+      </div>
+      <div class="ph-stat">
+        <div class="ph-stat-value">5.51</div>
+        <div class="ph-stat-label">Average pH</div>
+      </div>
+      <div class="ph-stat">
+        <div class="ph-stat-value">8</div>
+        <div class="ph-stat-label">Formulation Types</div>
+      </div>
+    </div>
+
+    <!-- Calculator Grid -->
+    <div class="ph-grid fade-in">
+
+      <!-- Input -->
+      <div class="ph-card">
+        <h2>🧪 Select Ingredients</h2>
+
+        <label class="ph-label" for="ph-formulation-type">Formulation Type</label>
+        <select class="ph-select" id="ph-formulation-type">
+          <option value="">— Select a formulation type —</option>
+          <option value="cleansers">🧴 Cleansers</option>
+          <option value="toners">💧 Toners</option>
+          <option value="serums">🔬 Serums</option>
+          <option value="moisturizers">🌿 Moisturizers</option>
+          <option value="exfoliation products">✨ Exfoliation Products</option>
+          <option value="sunscreen">☀️ Sunscreen</option>
+          <option value="face masks">🎭 Face Masks</option>
+          <option value="lip balm">💄 Lip Balm</option>
+        </select>
+
+        <label class="ph-label" for="ph-ingredient-select">Add Ingredients</label>
+        <select class="ph-select" id="ph-ingredient-select">
+          <option value="">— Select an ingredient —</option>
+          <optgroup label="Acids (AHA/BHA)">
+            <option value="Glycolic Acid">Glycolic Acid</option>
+            <option value="Lactic Acid">Lactic Acid</option>
+            <option value="Salicylic Acid">Salicylic Acid</option>
+            <option value="Mandelic Acid">Mandelic Acid</option>
+            <option value="Citric Acid">Citric Acid</option>
+            <option value="Malic Acid">Malic Acid</option>
+            <option value="Tartaric Acid">Tartaric Acid</option>
+            <option value="Ferulic Acid">Ferulic Acid</option>
+          </optgroup>
+          <optgroup label="Vitamins & Antioxidants">
+            <option value="Ascorbic Acid">Vitamin C (Ascorbic Acid)</option>
+            <option value="Vitamin E">Vitamin E</option>
+            <option value="Niacinamide">Niacinamide (Vitamin B3)</option>
+            <option value="Retinol">Retinol</option>
+            <option value="Retinaldehyde">Retinaldehyde</option>
+            <option value="Panthenol">Panthenol (Vitamin B5)</option>
+          </optgroup>
+          <optgroup label="Hydrating Agents">
+            <option value="Hyaluronic Acid">Hyaluronic Acid</option>
+            <option value="Sodium Hyaluronate">Sodium Hyaluronate</option>
+            <option value="Glycerin">Glycerin</option>
+            <option value="Squalane">Squalane</option>
+            <option value="Ceramides">Ceramides</option>
+            <option value="Urea">Urea</option>
+          </optgroup>
+          <optgroup label="Botanical Extracts">
+            <option value="Aloe Vera Extract">Aloe Vera Extract</option>
+            <option value="Green Tea Extract">Green Tea Extract</option>
+            <option value="Centella Asiatica Extract">Centella Asiatica Extract</option>
+            <option value="Chamomile Extract">Chamomile Extract</option>
+            <option value="Licorice Root Extract">Licorice Root Extract</option>
+            <option value="Rose Water">Rose Water</option>
+          </optgroup>
+          <optgroup label="Surfactants & Cleansing">
+            <option value="Sodium Lauryl Sulfate">Sodium Lauryl Sulfate</option>
+            <option value="Cocamidopropyl Betaine">Cocamidopropyl Betaine</option>
+            <option value="Decyl Glucoside">Decyl Glucoside</option>
+          </optgroup>
+          <optgroup label="UV Filters">
+            <option value="Zinc Oxide">Zinc Oxide</option>
+            <option value="Titanium Dioxide">Titanium Dioxide</option>
+            <option value="Avobenzone">Avobenzone</option>
+            <option value="Octocrylene">Octocrylene</option>
+          </optgroup>
+          <optgroup label="Emollients & Oils">
+            <option value="Shea Butter">Shea Butter</option>
+            <option value="Jojoba Oil">Jojoba Oil</option>
+            <option value="Coconut Oil">Coconut Oil</option>
+            <option value="Argan Oil">Argan Oil</option>
+            <option value="Petrolatum">Petrolatum</option>
+          </optgroup>
+          <optgroup label="Thickeners & Stabilizers">
+            <option value="Carbomer">Carbomer</option>
+            <option value="Xanthan Gum">Xanthan Gum</option>
+            <option value="Kaolin">Kaolin</option>
+            <option value="Bentonite">Bentonite</option>
+          </optgroup>
+          <optgroup label="pH Adjusters">
+            <option value="Sodium Hydroxide">Sodium Hydroxide</option>
+            <option value="Triethanolamine">Triethanolamine</option>
+          </optgroup>
+        </select>
+
+        <label class="ph-label">Selected Ingredients</label>
+        <div class="selected-tags-box" id="ph-selected-tags"></div>
+
+        <div class="ph-btn-group">
+          <button class="ph-btn ph-btn-main" onclick="calculatePH()">🔬 Calculate pH</button>
+          <button class="ph-btn ph-btn-clear" onclick="clearPHSelection()">Clear All</button>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div class="ph-card ph-result-card">
+        <div class="ph-placeholder" id="ph-placeholder">
+          <div class="ph-placeholder-icon">⚗️</div>
+          <p>Select a formulation type and add ingredients to calculate the estimated pH</p>
+        </div>
+        <div class="ph-result-inner" id="ph-result-inner">
+          <div class="ph-circle-wrap">
+            <div class="ph-circle">
+              <div>
+                <div class="ph-circle-value" id="ph-circle-val">5.5</div>
+                <div class="ph-circle-label">pH</div>
+              </div>
+            </div>
+          </div>
+          <div class="ph-status-badge" id="ph-status-badge">✓ Skin-Compatible</div>
+          <p class="ph-result-desc" id="ph-result-desc">This pH level is within the optimal range for skin health.</p>
+          <div class="ph-scale-wrap">
+            <div class="ph-scale-bar">
+              <div class="ph-scale-marker" id="ph-scale-marker"></div>
+            </div>
+            <div class="ph-scale-labels">
+              <span>3.5 Acidic</span>
+              <span>5.5 Balanced</span>
+              <span>7.5 Neutral</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- pH Info Cards -->
+    <div class="ph-info-grid fade-in">
+      <div class="ph-info-card">
+        <h3>🔴 Acidic (pH 3.5–4.5)</h3>
+        <p>Typical of exfoliating products with AHAs/BHAs. Effective for cell turnover but may cause sensitivity in some skin types.</p>
+      </div>
+      <div class="ph-info-card">
+        <h3>🟡 Slightly Acidic (pH 4.5–5.5)</h3>
+        <p>Close to skin's natural pH (~5.5). Ideal for serums, toners, and most treatment products. Well-tolerated by most skin types.</p>
+      </div>
+      <div class="ph-info-card">
+        <h3>🟢 Balanced (pH 5.5–6.5)</h3>
+        <p>Perfect for moisturizers and daily-use products. Maintains skin barrier integrity without disruption.</p>
+      </div>
+      <div class="ph-info-card">
+        <h3>🔵 Neutral (pH 6.5–7.5)</h3>
+        <p>Common in cleansers. While gentle, prolonged use of high-pH cleansers may temporarily disrupt the acid mantle.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- STATISTICS -->
+<section id="statistics">
+  <div class="section-header fade-in">
+    <span class="section-label">Dataset Analysis · 160 Products</span>
+    <h2 class="section-title">Formulation <em>Analytics</em></h2>
+  </div>
+
+  <div class="stats-container">
+    <div class="stats-overview fade-in">
+      <div class="stat-number-card">
+        <div class="stat-big">160</div>
+        <div class="stat-label-sm">Total Products</div>
+      </div>
+      <div class="stat-number-card">
+        <div class="stat-big">8</div>
+        <div class="stat-label-sm">Formulation Types</div>
+      </div>
+      <div class="stat-number-card">
+        <div class="stat-big">5.51</div>
+        <div class="stat-label-sm">Average pH</div>
+      </div>
+      <div class="stat-number-card">
+        <div class="stat-big">−68</div>
+        <div class="stat-label-sm">Avg. Expiry Gap (Days)</div>
+      </div>
+      <div class="stat-number-card">
+        <div class="stat-big">3.5</div>
+        <div class="stat-label-sm">Min pH Recorded</div>
+      </div>
+      <div class="stat-number-card">
+        <div class="stat-big">7.5</div>
+        <div class="stat-label-sm">Max pH Recorded</div>
+      </div>
+    </div>
+
+    <div class="charts-grid fade-in">
+      <div class="chart-card">
+        <div class="chart-title">Formulation Type Distribution</div>
+        <div class="bar-item"><div class="bar-label"><span>Cleansers</span><span>24</span></div><div class="bar-track"><div class="bar-fill" style="width:96%"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>Moisturizers</span><span>24</span></div><div class="bar-track"><div class="bar-fill" style="width:96%"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>Face Masks</span><span>23</span></div><div class="bar-track"><div class="bar-fill" style="width:92%"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>Serums</span><span>23</span></div><div class="bar-track"><div class="bar-fill" style="width:92%"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>Lip Balm</span><span>18</span></div><div class="bar-track"><div class="bar-fill" style="width:72%"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>Exfoliation</span><span>18</span></div><div class="bar-track"><div class="bar-fill" style="width:72%"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>Sunscreen</span><span>16</span></div><div class="bar-track"><div class="bar-fill" style="width:64%"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>Toners</span><span>14</span></div><div class="bar-track"><div class="bar-fill" style="width:56%"></div></div></div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-title">Potential Side Effects Frequency</div>
+        <div class="bar-item"><div class="bar-label"><span>Redness</span><span>26</span></div><div class="bar-track"><div class="bar-fill" style="width:100%;background:linear-gradient(90deg,#e07070,#e8c5a8)"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>Mild Irritation</span><span>24</span></div><div class="bar-track"><div class="bar-fill" style="width:92%;background:linear-gradient(90deg,#e09970,#e8c5a8)"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>Allergic Reaction</span><span>22</span></div><div class="bar-track"><div class="bar-fill" style="width:85%;background:linear-gradient(90deg,#c97a7a,#e8c5a8)"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>Stinging</span><span>21</span></div><div class="bar-track"><div class="bar-fill" style="width:81%;background:linear-gradient(90deg,#c9a07a,#e8c5a8)"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>Dryness</span><span>20</span></div><div class="bar-track"><div class="bar-fill" style="width:77%;background:linear-gradient(90deg,#a8c9b0,#e8c5a8)"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>Breakouts</span><span>19</span></div><div class="bar-track"><div class="bar-fill" style="width:73%;background:linear-gradient(90deg,#9a8ec9,#e8c5a8)"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>Peeling</span><span>16</span></div><div class="bar-track"><div class="bar-fill" style="width:62%;background:linear-gradient(90deg,#c98ea8,#e8c5a8)"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>Sensitivity</span><span>12</span></div><div class="bar-track"><div class="bar-fill" style="width:46%;background:linear-gradient(90deg,#8ac9c9,#e8c5a8)"></div></div></div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-title">pH Profile Across Products</div>
+        <div style="display:flex;gap:1.5rem;align-items:center;margin-bottom:1rem;">
+          <div style="text-align:center">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:2.4rem;color:var(--terracotta);font-weight:300">5.51</div>
+            <div style="font-size:0.7rem;color:var(--mid);text-transform:uppercase;letter-spacing:0.1em">Mean pH</div>
+          </div>
+          <div style="flex:1">
+            <div style="height:4px;background:linear-gradient(90deg,#e55,#f90,#aacc55,#44bb88,#3399cc);border-radius:2px;margin-bottom:0.5rem"></div>
+            <div style="display:flex;justify-content:space-between;font-size:0.65rem;color:var(--mid)"><span>3.5 (Acidic)</span><span>7.5 (Neutral)</span></div>
+          </div>
+        </div>
+        <div class="bar-item"><div class="bar-label"><span>pH 3.5–4.5 (Exfoliants)</span><span>~25%</span></div><div class="bar-track"><div class="bar-fill" style="width:25%;background:linear-gradient(90deg,#e55,#f88)"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>pH 4.5–5.5 (Serums)</span><span>~35%</span></div><div class="bar-track"><div class="bar-fill" style="width:35%;background:linear-gradient(90deg,#f90,#fcc)"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>pH 5.5–6.5 (Moisturizers)</span><span>~28%</span></div><div class="bar-track"><div class="bar-fill" style="width:28%;background:linear-gradient(90deg,#8ac,#cef)"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>pH 6.5–7.5 (Cleansers)</span><span>~12%</span></div><div class="bar-track"><div class="bar-fill" style="width:12%;background:linear-gradient(90deg,#4bb,#aef)"></div></div></div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-title">Expiry Date Analysis</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem">
+          <div style="background:var(--cream);border-radius:1rem;padding:1rem;text-align:center">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--terracotta)">100%</div>
+            <div style="font-size:0.7rem;color:var(--mid);margin-top:0.2rem">Expired Earlier</div>
+          </div>
+          <div style="background:var(--cream);border-radius:1rem;padding:1rem;text-align:center">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--mid)">−120</div>
+            <div style="font-size:0.7rem;color:var(--mid);margin-top:0.2rem">Max Gap (Days)</div>
+          </div>
+        </div>
+        <div class="bar-item"><div class="bar-label"><span>Listed Expiry: 2027</span><span>82 products</span></div><div class="bar-track"><div class="bar-fill" style="width:82%"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>Listed Expiry: 2026</span><span>78 products</span></div><div class="bar-track"><div class="bar-fill" style="width:78%"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>Actual Expiry: 2026</span><span>80 products</span></div><div class="bar-track"><div class="bar-fill" style="width:80%;background:linear-gradient(90deg,var(--sage),var(--gold))"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>Actual Expiry: 2027</span><span>69 products</span></div><div class="bar-track"><div class="bar-fill" style="width:69%;background:linear-gradient(90deg,var(--sage),var(--gold))"></div></div></div>
+        <div class="bar-item"><div class="bar-label"><span>Actual Expiry: 2025</span><span>11 products</span></div><div class="bar-track"><div class="bar-fill" style="width:11%;background:linear-gradient(90deg,#e07070,var(--gold))"></div></div></div>
+      </div>
+    </div>
+
+    <div class="expiry-insight fade-in">
+      <div class="expiry-insight-title">Key Insight: Early Expiry Pattern</div>
+      <p class="expiry-insight-text">Across all 160 products analysed, <strong>100% expired before their listed date</strong> — with an average gap of <strong>67.7 days</strong> (about 2 months) between the listed and actual expiry. The maximum observed gap was <strong>120 days</strong>. This highlights the importance of checking products regularly and relying on sensory cues — not just the printed date.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Lumière</div>
+  <p class="footer-text">Skincare Intelligence Platform · Formulation Guide, Shelf Life, pH Calculator & Ingredient Analysis<br>
+  Data based on analysis of 160 cosmetic formulations across 8 product categories.</p>
+</footer>
+
+<!-- PRODUCT DETAIL MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modalContent">
+    <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    <div class="modal-label" id="modalLabel"></div>
+    <h2 class="modal-title" id="modalTitle"></h2>
+    <p class="modal-desc" id="modalDesc"></p>
+    <div class="ingredients-title">Key Ingredients</div>
+    <div id="modalIngredients"></div>
+  </div>
+</div>
+
+<script>
+// ─── NAV ACTIVE ───
+function setActive(el) {
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ─── PRODUCT DATA ───
+const productData = {
+  cleansers: {
+    label: "Step 01 · Cleanse", title: "Cleansers",
+    desc: "Cleansers are the foundation of any skincare routine — removing makeup, sunscreen, excess oil, and environmental pollutants. They range from gentle micellar waters and cream cleansers to more powerful foaming or gel formulas. The key is maintaining the skin's natural pH (around 4.5–5.5) while effectively cleansing without stripping the moisture barrier.",
+    groups: [
+      { label: "Surfactants", items: ["Sodium Lauryl Sulfate (SLS)", "Sodium Laureth Sulfate (SLES)", "Cocamidopropyl Betaine", "Sodium Cocoyl Isethionate", "Decyl Glucoside", "Lauryl Glucoside"] },
+      { label: "Humectants", items: ["Glycerin", "Propylene Glycol", "Butylene Glycol", "Hyaluronic Acid", "Sorbitol"] },
+      { label: "Emollients", items: ["Caprylic/Capric Triglyceride", "Squalane", "Cetyl Alcohol", "Stearyl Alcohol"] },
+      { label: "Preservatives", items: ["Phenoxyethanol", "Sodium Benzoate", "Potassium Sorbate", "Parabens"] },
+      { label: "Treatment Additions", items: ["Salicylic Acid", "Glycolic Acid", "Niacinamide", "Zinc PCA"] },
+      { label: "Botanicals", items: ["Aloe Vera Extract", "Green Tea Extract", "Chamomile Extract", "Tea Tree Extract"] }
+    ]
+  },
+  toners: {
+    label: "Step 02 · Balance", title: "Toners",
+    desc: "Toners are versatile multi-taskers applied after cleansing to restore pH balance, provide immediate hydration, and prepare skin for the actives that follow. Modern toners range from lightweight watery essences to exfoliating acid toners. K-beauty influenced ferment-rich toners have become hugely popular for their skin-plumping and brightening effects.",
+    groups: [
+      { label: "Base Solvents", items: ["Aqua (Water)", "Rose Water", "Witch Hazel Water", "Green Tea Water", "Rice Water"] },
+      { label: "Humectants", items: ["Glycerin", "Hyaluronic Acid", "Sodium PCA", "Panthenol", "Betaine", "Urea", "Beta-Glucan"] },
+      { label: "Exfoliating Actives", items: ["Glycolic Acid", "Lactic Acid", "Salicylic Acid", "Gluconolactone"] },
+      { label: "Ferments & K-Beauty", items: ["Galactomyces Ferment Filtrate", "Bifida Ferment Lysate", "Lactobacillus Ferment", "Adenosine"] },
+      { label: "Antioxidants", items: ["Vitamin C", "Niacinamide", "Vitamin E", "Ferulic Acid", "Green Tea Extract"] },
+      { label: "Soothing Agents", items: ["Allantoin", "Centella Asiatica Extract", "Bisabolol", "Calendula Extract"] }
+    ]
+  },
+  serums: {
+    label: "Step 03 · Target", title: "Serums",
+    desc: "Serums are lightweight, high-concentration formulas designed to deliver active ingredients deep into the skin. They typically have smaller molecular sizes than moisturizers, allowing for better penetration. Different serums target specific concerns: Vitamin C for brightening, retinol for anti-aging, niacinamide for oil control, hyaluronic acid for hydration, and salicylic acid for acne.",
+    groups: [
+      { label: "Vitamin C (Brightening)", items: ["Ascorbic Acid", "Ascorbyl Glucoside", "Ethylated Ascorbic Acid", "Magnesium Ascorbyl Phosphate", "Ferulic Acid"] },
+      { label: "Hyaluronic Acid (Hydration)", items: ["Hyaluronic Acid", "Sodium Hyaluronate", "Hydrolyzed Hyaluronic Acid", "Glycerin", "Panthenol"] },
+      { label: "Niacinamide (Oil Control)", items: ["Niacinamide", "Zinc PCA", "Pentylene Glycol", "Dimethyl Isosorbide"] },
+      { label: "Retinol (Anti-aging)", items: ["Retinol", "Retinaldehyde", "Retinyl Palmitate", "Hydroxypinacolone Retinoate", "Squalane", "BHT"] },
+      { label: "Salicylic Acid (Acne)", items: ["Salicylic Acid", "Betaine Salicylate", "Willow Bark Extract", "Allantoin", "Panthenol"] },
+      { label: "Stabilizers & Base", items: ["Carbomer", "Xanthan Gum", "Acrylates Copolymer", "Sodium Hydroxide", "Phenoxyethanol"] }
+    ]
+  },
+  moisturizers: {
+    label: "Step 04 · Seal", title: "Moisturizers",
+    desc: "Moisturizers work by combining three types of hydrating ingredients: humectants draw moisture into the skin, emollients smooth and soften, and occlusives create a protective barrier to seal moisture in. A well-formulated moisturizer also supports the skin's lipid barrier — the key to calm, resilient skin that resists sensitivity and environmental stress.",
+    groups: [
+      { label: "Humectants", items: ["Glycerin", "Hyaluronic Acid", "Sodium PCA", "Urea", "Sorbitol", "Panthenol", "Honey", "Aloe Vera Extract"] },
+      { label: "Emollients", items: ["Squalane", "Jojoba Oil", "Caprylic/Capric Triglyceride", "Shea Butter", "Cocoa Butter", "Dimethicone"] },
+      { label: "Occlusives", items: ["Petrolatum", "Mineral Oil", "Beeswax", "Carnauba Wax", "Lanolin", "Paraffin"] },
+      { label: "Barrier Actives", items: ["Ceramides (NP, AP, EOP)", "Cholesterol", "Fatty Acids", "Niacinamide", "Peptides"] },
+      { label: "Natural Oils & Butters", items: ["Coconut Oil", "Argan Oil", "Rosehip Oil", "Grape Seed Oil", "Mango Butter"] },
+      { label: "Botanical Extracts", items: ["Green Tea Extract", "Centella Asiatica", "Licorice Extract", "Chamomile Extract", "Calendula"] }
+    ]
+  },
+  exfoliation: {
+    label: "Step 05 · Renew", title: "Exfoliation Products",
+    desc: "Exfoliants accelerate skin cell turnover to reveal fresher, more radiant skin beneath. Chemical exfoliants (AHAs, BHAs, PHAs) dissolve the bonds between dead skin cells, while physical exfoliants use gentle abrasives to manually buff them away. PHAs are the gentlest option, making them suitable even for sensitive skin, while BHAs are oil-soluble and ideal for penetrating pores.",
+    groups: [
+      { label: "AHA (Alpha Hydroxy Acids)", items: ["Glycolic Acid", "Lactic Acid", "Mandelic Acid", "Citric Acid", "Malic Acid", "Tartaric Acid"] },
+      { label: "BHA (Beta Hydroxy Acids)", items: ["Salicylic Acid", "Betaine Salicylate", "Capryloyl Salicylic Acid (LHA)", "Willow Bark Extract"] },
+      { label: "PHA (Polyhydroxy Acids)", items: ["Gluconolactone", "Lactobionic Acid", "Maltobionic Acid", "Gluconic Acid"] },
+      { label: "Physical Abrasives", items: ["Walnut Shell Powder", "Jojoba Esters", "Sugar (Sucrose)", "Rice Bran Powder", "Bamboo Powder", "Pumice"] },
+      { label: "Botanical Enzymes", items: ["Papaya Extract (Papain)", "Pineapple Extract (Bromelain)", "Pumpkin Enzyme Extract"] },
+      { label: "Supporting Actives", items: ["Allantoin", "Centella Asiatica", "Niacinamide", "Ceramides", "Vitamin E"] }
+    ]
+  },
+  sunscreen: {
+    label: "Step 06 · Protect", title: "Sunscreen",
+    desc: "Sunscreen is the single most effective anti-aging and skin protection product available. It shields against UVA (aging) and UVB (burning) rays. Mineral sunscreens use physical blockers like Zinc Oxide and Titanium Dioxide that sit on the skin's surface. Chemical sunscreens absorb UV rays and convert them to heat. Broad-spectrum formulas protect against both UV types.",
+    groups: [
+      { label: "Physical UV Filters", items: ["Zinc Oxide", "Titanium Dioxide"] },
+      { label: "Chemical UV Filters", items: ["Octinoxate", "Octocrylene", "Homosalate", "Avobenzone", "Ensulizole", "Octisalate", "Bemotrizinol (Tinosorb S)"] },
+      { label: "Film Formers", items: ["Acrylates Copolymer", "VP/Eicosene Copolymer", "Polyurethane-34", "PVP"] },
+      { label: "Antioxidant Boosters", items: ["Vitamin E (Tocopherol)", "Vitamin C", "Ferulic Acid", "Green Tea Extract", "Resveratrol"] },
+      { label: "Soothing Agents", items: ["Allantoin", "Bisabolol", "Centella Asiatica Extract", "Aloe Vera", "Panthenol"] },
+      { label: "Special Ingredients", items: ["Iron Oxides (tinted SPF)", "Mica", "Silicone Elastomers", "Nylon-12"] }
+    ]
+  },
+  facemasks: {
+    label: "Step 07 · Treat", title: "Face Masks",
+    desc: "Face masks deliver intensive, concentrated treatment in a short amount of time. Clay and mud masks absorb excess oil and unclog pores. Sheet masks infuse skin with serums and essences. Peel-off masks remove surface dead cells and debris, while overnight sleeping masks act as super-powered moisturizers that work as you sleep. Choose based on your skin's specific needs.",
+    groups: [
+      { label: "Clay & Absorbents", items: ["Kaolin", "Bentonite", "Fuller's Earth", "French Green Clay", "Charcoal Powder"] },
+      { label: "Exfoliating Actives", items: ["Glycolic Acid", "Lactic Acid", "Salicylic Acid", "Papain (Papaya)", "Bromelain (Pineapple)"] },
+      { label: "Hydrating Actives", items: ["Hyaluronic Acid", "Sodium Hyaluronate", "Glycerin", "Panthenol", "Aloe Vera"] },
+      { label: "Treatment Actives", items: ["Niacinamide", "Vitamin C", "Retinol", "Sulfur", "Azelaic Acid", "Caffeine"] },
+      { label: "Film Formers (Peel-off)", items: ["Polyvinyl Alcohol (PVA)", "PVP", "Acrylates Copolymer", "Cellulose Derivatives"] },
+      { label: "Special Sheet Mask Ingredients", items: ["Biocellulose", "Hydrogel Polymers", "Galactomyces Ferment", "Adenosine", "Ceramides"] }
+    ]
+  },
+  lipbalm: {
+    label: "Step 08 · Nourish", title: "Lip Balm",
+    desc: "Lip skin is uniquely delicate — it lacks oil glands and has a very thin protective layer, making it prone to dryness and cracking. Lip balms combine waxes (for structure), oils and butters (for nourishment), and humectants (for moisture). Medicated balms may include SPF filters, peptides for plumping, or allantoin for healing cracked skin.",
+    groups: [
+      { label: "Waxes & Occlusives", items: ["Beeswax (Cera Alba)", "Carnauba Wax", "Candelilla Wax", "Petrolatum", "Microcrystalline Wax", "Lanolin"] },
+      { label: "Natural Butters", items: ["Shea Butter", "Cocoa Butter", "Mango Butter", "Kokum Butter", "Cupuaçu Butter"] },
+      { label: "Natural Oils", items: ["Coconut Oil", "Jojoba Oil", "Castor Oil", "Argan Oil", "Rosehip Oil", "Avocado Oil"] },
+      { label: "Humectants", items: ["Glycerin", "Hyaluronic Acid", "Panthenol", "Honey", "Sorbitol"] },
+      { label: "Flavour & Sensory", items: ["Menthol", "Peppermint Oil", "Vanilla Extract", "Citrus Oils", "Limonene"] },
+      { label: "Functional Actives", items: ["Vitamin E (Tocopherol)", "Vitamin C", "Allantoin", "Peptides (plumping)", "Ceramides"] }
+    ]
+  }
+};
+
+function openModal(type) {
+  const data = productData[type];
+  document.getElementById('modalLabel').textContent = data.label;
+  document.getElementById('modalTitle').textContent = data.title;
+  document.getElementById('modalDesc').textContent = data.desc;
+  let html = '';
+  data.groups.forEach(g => {
+    html += `<div class="ingredient-group"><div class="ingredient-group-label">${g.label}</div><div class="ingredient-tags">`;
+    g.items.forEach(i => { html += `<span class="ingredient-tag">${i}</span>`; });
+    html += `</div></div>`;
+  });
+  document.getElementById('modalIngredients').innerHTML = html;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
+}
+
+function closeModalDirect() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ─── INGREDIENT PREDICTOR ───
+const ingredientMap = {"Ingredients":"Potential Side Effects","Glycolic Acid":"Mild irritation","Lactic Acid":"Mild irritation","Mandelic Acid":"Allergic reaction","Citric Acid":"Breakouts","Malic Acid":"Breakouts","Tartaric Acid":"Breakouts","Salicylic Acid":"Allergic reaction","Betaine Salicylate":"Allergic reaction","Gluconolactone":"Breakouts","Lactobionic Acid":"Breakouts","Walnut Shell Powder":"Breakouts","Apricot Kernel Powder":"Breakouts","Sugar":"Breakouts","Salt":"Breakouts","Silica":"Breakouts","Jojoba Esters":"Breakouts","Bamboo Powder":"Breakouts","Rice Bran Powder":"Breakouts","Pumice":"Breakouts","Kaolin":"Breakouts","Charcoal Powder":"Breakouts","Coffee Grounds Powder":"Breakouts","Glycerin":"Redness","Sodium Hyaluronate":"Allergic reaction","Panthenol":"Redness","Aloe Vera Extract":"Allergic reaction","Caprylic/Capric Triglyceride":"Redness","Squalane":"Redness","Cetearyl Alcohol":"Breakouts","Carbomer":"Redness","Xanthan Gum":"Redness","Sclerotium Gum":"Breakouts","Sodium Hydroxide":"Redness","Triethanolamine":"Allergic reaction","Phenoxyethanol":"Redness","Ethylhexylglycerin":"Allergic reaction","Benzyl Alcohol":"Breakouts","Limonene":"Allergic reaction","Linalool":"Allergic reaction","Niacinamide":"Redness","Zinc PCA":"Allergic reaction","Ceramides":"Breakouts","Vitamin E":"Allergic reaction","Ferulic Acid":"Allergic reaction","Zinc Oxide":"Stinging","Titanium Dioxide":"Peeling","Avobenzone":"Peeling","Octocrylene":"Peeling","Octinoxate":"Peeling","Homosalate":"Peeling","Octisalate":"Peeling","Ensulizole":"Peeling","Hyaluronic Acid":"Redness","Dimethicone":"Redness","Cyclopentasiloxane":"Peeling","Acrylates Copolymer":"Allergic reaction","VP/Eicosene Copolymer":"Peeling","Polyurethane-34":"Peeling","Hydroxyethylcellulose":"Mild irritation","Vitamin C":"Stinging","Green Tea Extract":"Redness","Resveratrol":"Dryness","Allantoin":"Redness","Bisabolol":"Allergic reaction","Centella Asiatica Extract":"Allergic reaction","Aqua":"Redness","Sodium Lauryl Sulfate":"Mild irritation","Sodium Laureth Sulfate":"Mild irritation","Cocamidopropyl Betaine":"Mild irritation","Sodium Cocoyl Isethionate":"Mild irritation","Decyl Glucoside":"Mild irritation","Lauryl Glucoside":"Mild irritation","Propylene Glycol":"Allergic reaction","Butylene Glycol":"Allergic reaction","Sorbitol":"Redness","Cetyl Alcohol":"Redness","Stearyl Alcohol":"Redness","Sodium Benzoate":"Mild irritation","Potassium Sorbate":"Mild irritation","Fragrance":"Mild irritation","Chamomile Extract":"Mild irritation","Tea Tree Extract":"Mild irritation","Ascorbic Acid":"Allergic reaction","Ascorbyl Glucoside":"Allergic reaction","Magnesium Ascorbyl Phosphate":"Allergic reaction","Retinol":"Stinging","Retinaldehyde":"Allergic reaction","Propanediol":"Allergic reaction","Dimethyl Isosorbide":"Allergic reaction","Ethoxydiglycol":"Allergic reaction","Sodium PCA":"Allergic reaction","Urea":"Stinging","Chlorphenesin":"Allergic reaction","Rose Water":"Stinging","Witch Hazel Water":"Stinging","Green Tea Water":"Stinging","Rice Water":"Stinging","Alcohol Denat.":"Stinging","Pentylene Glycol":"Stinging","Betaine":"Stinging","Trehalose":"Stinging","Licorice Root Extract":"Stinging","Calendula Extract":"Stinging","Cucumber Extract":"Stinging","Lecithin":"Stinging","Galactomyces Ferment Filtrate":"Stinging","Bifida Ferment Lysate":"Stinging","Sodium Citrate":"Stinging","Petrolatum":"Redness","Mineral Oil":"Redness","Paraffin":"Redness","Beeswax":"Redness","Carnauba Wax":"Redness","Candelilla Wax":"Redness","Lanolin":"Redness","Isopropyl Myristate":"Redness","Glyceryl Stearate":"Redness","Honey":"Redness","Shea Butter":"Redness","Cocoa Butter":"Redness","Mango Butter":"Redness","Coconut Oil":"Redness","Jojoba Oil":"Redness","Almond Oil":"Redness","Olive Oil":"Redness","Castor Oil":"Redness","Argan Oil":"Redness","Rosehip Oil":"Redness","Retinyl Palmitate":"Redness","Coenzyme Q10":"Redness","Flavor":"Redness","Menthol":"Redness","Citral":"Redness","Bentonite":"Stinging","Papain":"Stinging","Bromelain":"Stinging","Tea Tree Oil":"Stinging","Peptides":"Redness","Licorice Extract":"Stinging","Aloe Vera Juice":"Redness","Sunflower Seed Oil":"Redness","Cholesterol":"Redness","Fatty Acids":"Redness","Madecassoside":"Redness"};
+
+const effectDescriptions = {
+  "Redness": { class: "danger", badge: "badge-danger", desc: "Redness is one of the most common reactions to expired skincare. As preservatives break down, microbial growth and chemical degradation can trigger inflammatory responses — particularly visible in fair or sensitive skin. Discontinue use immediately and cleanse thoroughly." },
+  "Mild irritation": { class: "warning", badge: "badge-warning", desc: "Mild irritation can manifest as a tingling, itching or tight feeling — especially with surfactant or acid-based products past their shelf life. Degraded surfactants may become harsher, and acids may shift in pH, making them more aggressive on the skin barrier." },
+  "Allergic reaction": { class: "danger", badge: "badge-danger", desc: "As products expire, certain molecules can break down into sensitizing or allergenic compounds. Fragrance components, preservatives and active ingredients are particularly susceptible. Reactions may include hives, swelling, or contact dermatitis. Seek medical advice if symptoms are severe." },
+  "Stinging": { class: "warning", badge: "badge-warning", desc: "A stinging sensation after applying expired product may indicate pH shift or preservative degradation. Retinoids, acids, and alcohol-containing formulas can become more aggressive over time. If stinging persists beyond 30 seconds, rinse off immediately." },
+  "Peeling": { class: "warning", badge: "badge-warning", desc: "Peeling can occur when chemical UV filters or exfoliating agents in expired formulas become unstable and overly reactive on skin. This is especially common with expired sunscreen chemical filters, which may over-absorb into the skin and irritate. Stop use and allow skin to recover." },
+  "Breakouts": { class: "danger", badge: "badge-danger", desc: "Expired products can harbour bacterial or fungal contamination after their preservative system fails. Oils and waxes can also turn rancid, clogging pores with oxidised lipids. If you notice new breakouts after introducing a product, its age may be a contributing factor." },
+  "Dryness": { class: "info", badge: "badge-safe", desc: "Some expired humectant-rich products can lose their moisture-binding properties as hyaluronic acid and other hydrators degrade. The result can be paradoxical dryness — applying a product that once hydrated but no longer does. The product is less harmful but significantly less effective." },
+  "Sensitivity": { class: "warning", badge: "badge-warning", desc: "Expired products can temporarily heighten skin sensitivity by disrupting the acid mantle or introducing degraded actives. Skin may feel more reactive to temperature, touch, or other products. Avoid layering multiple actives and focus on barrier repair." }
+};
+
+function predictEffect() {
+  const input = document.getElementById('ingredientInput').value.trim();
+  const resultDiv = document.getElementById('predictResult');
+  if (!input) {
+    resultDiv.className = 'predictor-result notfound'; resultDiv.style.display = 'block';
+    document.getElementById('resultBadge').className = 'result-badge'; document.getElementById('resultBadge').textContent = '';
+    document.getElementById('resultEffect').textContent = 'Please enter an ingredient name';
+    document.getElementById('resultDesc').textContent = 'Type a common skincare ingredient to see its predicted side effect.';
+    return;
+  }
+  const keys = Object.keys(ingredientMap);
+  let match = null;
+  const inputLower = input.toLowerCase();
+  match = keys.find(k => k.toLowerCase() === inputLower);
+  if (!match) match = keys.find(k => k.toLowerCase().includes(inputLower) || inputLower.includes(k.toLowerCase().split(' ')[0]));
+  if (match && match !== 'Ingredients') {
+    const effect = ingredientMap[match];
+    const info = effectDescriptions[effect] || { class: 'info', badge: 'badge-safe', desc: 'This ingredient has been associated with this effect in products past their shelf-life.' };
+    resultDiv.className = `predictor-result ${info.class}`; resultDiv.style.display = 'block';
+    const badgeEl = document.getElementById('resultBadge');
+    badgeEl.className = `result-badge ${info.badge}`; badgeEl.textContent = 'Post Shelf-Life Effect';
+    document.getElementById('resultEffect').textContent = `⚠ ${effect}`;
+    document.getElementById('resultDesc').innerHTML = `<strong>Matched Ingredient:</strong> ${match}<br><br>${info.desc}`;
+  } else {
+    resultDiv.className = 'predictor-result notfound'; resultDiv.style.display = 'block';
+    document.getElementById('resultBadge').className = 'result-badge'; document.getElementById('resultBadge').textContent = 'Not Found';
+    document.getElementById('resultEffect').textContent = 'Enter a valid ingredient!';
+    document.getElementById('resultDesc').textContent = `"${input}" was not found in our 160-product dataset. Try variations like "Glycolic Acid", "Retinol", "Hyaluronic Acid".`;
+  }
+}
+
+// ─── pH CALCULATOR ───
+const formulationPH = {
+  'cleansers': { min: 4.1, max: 7.3, avg: 5.67 },
+  'toners': { min: 3.8, max: 7.4, avg: 5.35 },
+  'serums': { min: 3.7, max: 7.4, avg: 5.43 },
+  'moisturizers': { min: 3.5, max: 7.3, avg: 5.52 },
+  'exfoliation products': { min: 3.5, max: 7.4, avg: 5.24 },
+  'sunscreen': { min: 5.1, max: 7.2, avg: 6.03 },
+  'face masks': { min: 3.5, max: 7.2, avg: 5.47 },
+  'lip balm': { min: 3.5, max: 7.5, avg: 5.26 }
+};
+
+const ingredientInfluence = {
+  'Glycolic Acid': -0.8, 'Lactic Acid': -0.6, 'Salicylic Acid': -0.7,
+  'Mandelic Acid': -0.5, 'Citric Acid': -0.6, 'Malic Acid': -0.4,
+  'Tartaric Acid': -0.4, 'Ferulic Acid': -0.3, 'Ascorbic Acid': -0.9,
+  'Hyaluronic Acid': -0.1, 'Sodium Hyaluronate': 0, 'Glycerin': 0,
+  'Squalane': 0, 'Ceramides': 0, 'Niacinamide': 0.1, 'Panthenol': 0,
+  'Vitamin E': 0, 'Retinol': -0.2, 'Retinaldehyde': -0.2, 'Urea': 0.1,
+  'Aloe Vera Extract': -0.1, 'Green Tea Extract': -0.2,
+  'Centella Asiatica Extract': 0, 'Chamomile Extract': 0,
+  'Licorice Root Extract': 0, 'Rose Water': -0.1,
+  'Sodium Lauryl Sulfate': 0.4, 'Cocamidopropyl Betaine': 0.2,
+  'Decyl Glucoside': 0.1, 'Zinc Oxide': 0.3, 'Titanium Dioxide': 0.2,
+  'Avobenzone': 0, 'Octocrylene': 0, 'Shea Butter': 0, 'Jojoba Oil': 0,
+  'Coconut Oil': 0, 'Argan Oil': 0, 'Petrolatum': 0,
+  'Carbomer': -0.2, 'Xanthan Gum': 0, 'Kaolin': 0.1, 'Bentonite': 0.2,
+  'Sodium Hydroxide': 0.8, 'Triethanolamine': 0.6
+};
+
+let phSelectedIngredients = [];
+
+document.getElementById('ph-ingredient-select').addEventListener('change', function() {
+  const ing = this.value;
+  if (ing && !phSelectedIngredients.includes(ing)) {
+    phSelectedIngredients.push(ing);
+    renderPHTags();
+  }
+  this.value = '';
+});
+
+function renderPHTags() {
+  const container = document.getElementById('ph-selected-tags');
+  container.innerHTML = phSelectedIngredients.map(ing => `
+    <span class="ph-tag">
+      ${ing}
+      <button onclick="removePHIngredient('${ing}')">&times;</button>
+    </span>
+  `).join('');
+}
+
+function removePHIngredient(ing) {
+  phSelectedIngredients = phSelectedIngredients.filter(i => i !== ing);
+  renderPHTags();
+}
+
+function clearPHSelection() {
+  phSelectedIngredients = [];
+  document.getElementById('ph-formulation-type').value = '';
+  renderPHTags();
+  document.getElementById('ph-placeholder').style.display = 'flex';
+  document.getElementById('ph-result-inner').style.display = 'none';
+}
+
+function calculatePH() {
+  const formType = document.getElementById('ph-formulation-type').value;
+  if (!formType) { alert('Please select a formulation type'); return; }
+  const baseData = formulationPH[formType];
+  let ph = baseData.avg;
+  phSelectedIngredients.forEach(ing => {
+    if (ingredientInfluence[ing] !== undefined) ph += ingredientInfluence[ing] * 0.5;
+  });
+  ph = Math.max(3.5, Math.min(7.5, ph));
+  ph = Math.round(ph * 10) / 10;
+  showPHResult(ph);
+}
+
+function showPHResult(ph) {
+  document.getElementById('ph-placeholder').style.display = 'none';
+  const inner = document.getElementById('ph-result-inner');
+  inner.style.display = 'block';
+
+  document.getElementById('ph-circle-val').textContent = ph.toFixed(1);
+  const pct = ((ph - 3.5) / 4) * 100;
+  document.getElementById('ph-scale-marker').style.left = `${pct}%`;
+
+  const badge = document.getElementById('ph-status-badge');
+  const desc = document.getElementById('ph-result-desc');
+
+  if (ph < 4.5) {
+    badge.className = 'ph-status-badge ph-status-acidic';
+    badge.textContent = '⚠ Acidic';
+    desc.textContent = 'This pH is quite acidic. Ideal for exfoliation but may cause sensitivity. Use with caution and follow with hydration.';
+  } else if (ph < 5.5) {
+    badge.className = 'ph-status-badge ph-status-balanced';
+    badge.textContent = '✓ Slightly Acidic';
+    desc.textContent = "Close to skin's natural pH. Well-suited for serums and treatment products. Generally well-tolerated.";
+  } else if (ph < 6.5) {
+    badge.className = 'ph-status-badge ph-status-balanced';
+    badge.textContent = '✓ Skin-Compatible';
+    desc.textContent = 'Optimal range for daily moisturizers. Supports skin barrier function without disruption.';
+  } else {
+    badge.className = 'ph-status-badge ph-status-neutral';
+    badge.textContent = '● Neutral';
+    desc.textContent = 'Common for cleansers. Effective for cleansing but consider following with a balancing toner.';
+  }
+}
+
+// ─── SCROLL ANIMATIONS ───
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+const sections = document.querySelectorAll('section[id]');
+const navBtns = document.querySelectorAll('.nav-btn');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 200) current = s.id; });
+  navBtns.forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+</body>
+</html>
